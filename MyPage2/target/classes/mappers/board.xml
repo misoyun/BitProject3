@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.mypage">
+	<insert id = "writePost" parameterType="com.bit.mypage.vo.Board_VO">
+		insert into Board (no, id, content, hashTag)
+		values (SEQ_PAGE.nextval, #{id}, #{content}, #{hashTag})
+	</insert>
+	<delete id = "deletePost" parameterType="int">
+		delete from Board
+		where no = #{no}	
+	</delete>	
+	
+	<resultMap id ="boardMap" type="com.bit.mypage.vo.Board_VO">
+		<result property = "no" column = "no"/>	
+		<result property = "id" column = "id"/>	
+		<result property = "content" column = "content"/>	
+		<result property = "time" column = "time"/>	
+		<result property = "hashTag" column = "hashTag"/>	
+		<result property = "nickName" column = "nickName"/>	
+	</resultMap>	
+	
+	<select id= "boardList" parameterType = "String" resultMap="boardMap">
+		select *
+		from Board 
+		where id = #{id}
+		order by time desc
+	</select>
+	
+	<select id = "updatePostForm" parameterType = "int" resultMap ="boardMap">
+		select *
+		from Board
+		where no = #{no}
+	</select>
+	
+	<update id ="updatePost" parameterType = "com.bit.mypage.vo.Board_VO">
+		update Board set
+		content = #{content}
+		hashTag = #{hashTag}
+		where no = #{no}	
+	</update>
+	
+	<select id="findList" parameterType="com.bit.mypage.vo.Board_VO" resultType="com.bit.mypage.vo.Board_VO">
+	   select *
+  	   from Board
+   	   where hashTag LIKE '%'||#{hashTag}||'%'
+   </select>
+	
+</mapper>

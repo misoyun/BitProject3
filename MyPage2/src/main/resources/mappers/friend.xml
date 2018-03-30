@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.mypage">
+  <insert id="addFriend" parameterType="com.bit.mypage.vo.FriendShip_VO">
+     insert into friendship(NO, ID, FRIEND, DATAEST)
+     values (SEQ_FRIEND.NEXTVAL, #{id}, #{friend}, sysdate)
+  </insert>
+  <delete id = "deleteFriend" parameterType="com.bit.mypage.vo.FriendShip_VO">
+   delete from friendship
+   where id = #{id} and friend = #{friend}
+  </delete>
+  <select id = "selectFriend" parameterType="com.bit.mypage.vo.FriendShip_VO" resultType="com.bit.mypage.vo.FriendShip_VO">
+     select *
+     from friendship
+     where id= #{id}
+  </select>
+  <select id = "findFriend" parameterType="String" resultType="int">
+     select count(*)
+     from user_
+     where id = #{id}
+  </select>
+  <select id = "isonthefriend" parameterType="com.bit.mypage.vo.FriendShip_VO" resultType="int">
+     select count(*)
+     from friendship
+     where id = #{id} and friend = #{friend}
+  </select>
+</mapper>

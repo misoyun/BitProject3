@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.mypage">
+	<select id="msgList" resultType="com.bit.mypage.vo.Message_VO" parameterType="String">
+	select no_,id1,id2,content,time
+	from message
+	where id1=#{id}
+	</select>
+	
+	<delete id="msgDelete" parameterType="String">
+	delete from message where no_=#{no_}
+	
+	</delete>
+	
+	<insert id="msginsert" parameterType="com.bit.mypage.vo.Message_VO">
+	insert into message (no_,id1,id2,content)
+	values(SEQ_MESSAGE.NEXTVAL,#{id1},#{id2},#{content})
+	
+	</insert>
+	<insert id="msginsert1" parameterType="com.bit.mypage.vo.Message_VO">
+	insert into message (no_,id1,id2,content)
+	values(SEQ_MESSAGE.NEXTVAL,#{id2},#{id1},#{content})
+	
+	</insert>
+	
+</mapper>
